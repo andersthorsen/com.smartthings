@@ -70,10 +70,10 @@ class MotionSensor2016Device extends ZigBeeDevice {
 			} else if (data1 >= 12) {
 				this.setCapabilityValue('batteryPercentageRemaining', 0.30);
 			} else if (data1 >= 11) {
-				this.setCapabilityValue('batteryPercentageRemaining', 0.20);
+				this.setCapabilityValue('batteryPercentageRemaining', 0.15);
 			} else if (data1 >= 10) {
 				this.setCapabilityValue('batteryPercentageRemaining', 0.10);
-			} else if (data1 >= 17) {
+			} else if (data1 >= 9) {
 				this.setCapabilityValue('batteryPercentageRemaining', 0.05);
 			}
 		}, 0).catch(
