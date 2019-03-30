@@ -1,0 +1,51 @@
+{
+  "id": "com.smartthings",
+  "version": "1.0.0",
+  "compatibility": ">=1.5.0",
+  "sdk": 2,
+  "name": {
+    "en": "Samsung SmartThings"
+  },
+  "description": {
+    "en": "Adds support for Samsung SmartThings sensors"
+  },
+  "category": [
+    "security"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Anders Thorsen",
+    "email": "anders@anders.to"
+  },
+  "drivers": [
+    {
+      "id": "st-motion-sensor-2016",
+      "name": {
+        "en": "Motion Sensor (2016)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery",
+        "alarm_motion",
+        "measure_temperature"
+      ],
+      "zigbee": {
+        "manufacturerName": "SmartThings",
+        "productId": [
+          "motionv5"
+        ],
+        "deviceId": 1026,
+        "profileId": 260
+      },
+      "images": {
+        "large": "/drivers/st-motion-sensor-2016/assets/images/large.png",
+        "small": "/drivers/st-motion-sensor-2016/assets/images/small.png"
+      }
+    }
+  ]
+}
