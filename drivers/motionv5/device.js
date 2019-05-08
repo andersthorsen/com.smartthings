@@ -1,16 +1,18 @@
 'use strict';
 
-const { ZigBeeDevice } = require('homey-meshdriver');
+const ZigBeeDeviceDebug = require('../../lib/ZigBeeDeviceDebug');
 
-class MotionSensor2016Device extends ZigBeeDevice {
+class MotionSensor2016Device extends ZigBeeDeviceDebug {
 
 	onMeshInit() {
 
 		this.enableDebug();
 
-		this.log('MotionSensor2016Device has been inited');
+		this.log('MotionSensor2016Device (motionv5) has been inited');
 
 		this.log(this.node.endpoints[0].clusters['msTemperatureMeasurement']);
+
+		this.attachDebugListeners();
 
 		this.registerCapability('alarm_motion', 'genBinaryInput', {
 			get: 'presentValue',
@@ -36,7 +38,7 @@ class MotionSensor2016Device extends ZigBeeDevice {
 				getOnOnline: true
 			}
 		});
-		//this.registerCapability('measure_luminance', 'msIlluminanceMeasurement');
+
 		this.registerCapability('measure_battery', 'genPowerCfg', {
 			get: 'batteryVoltage',
 			getOpts: {

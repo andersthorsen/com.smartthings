@@ -23,7 +23,7 @@
   },
   "drivers": [
     {
-      "id": "st-motion-sensor-2016",
+      "id": "motionv5",
       "name": {
         "en": "Motion Sensor (2016)"
       },
@@ -43,8 +43,33 @@
         "profileId": 260
       },
       "images": {
-        "large": "/drivers/st-motion-sensor-2016/assets/images/large.png",
-        "small": "/drivers/st-motion-sensor-2016/assets/images/small.png"
+        "large": "/drivers/motionv5/assets/images/large.png",
+        "small": "/drivers/motionv5/assets/images/small.png"
+      }
+    },
+    {
+      "id": "multiv4",
+      "name": {
+        "en": "Multipurpose Sensor"
+      },
+      "class": "homealarm",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery",
+        "alarm_contact",
+        "measure_temperature"
+      ],
+      "zigbee": {
+        "manufacturerName": "SmartThings",
+        "productId": [
+          "multiv4"
+        ],
+        "deviceId": 1026,
+        "profileId": 260
+      },
+      "images": {
+        "large": "/drivers/multiv4/assets/images/large.png",
+        "small": "/drivers/multiv4/assets/images/small.png"
       }
     }
   ]
