@@ -24,18 +24,22 @@ class MultiSensorDevice extends ZigBeeDeviceDebug {
 		var maxVolts = 28;
 
 		var volt = Math.round(voltage);
+		this.log('read voltage: ', voltage);
 
 		if (volt > maxVolts) {
 			volt = maxVolts;
+			this.log('voltage is above maxium');
 		}
 
 		if (volt < minVolts) {
 			volt = minVolts;
+			this.log('voltage is below minimum');
 		}
 
 		var pct = batteryMap[volt.toString()];
 
 		if (pct == null || pct == undefined || typeof (psct) == 'undefined') {
+			this.log('cannot detect voltage.')
 			return null;
 		}
 
@@ -82,7 +86,7 @@ class MultiSensorDevice extends ZigBeeDeviceDebug {
 			getParser: this.convertVoltageToPct.bind(this)
 		});
 
-		this.registerCapability('alarm_contact', 'ssIasZone', {
+		this.registerCapability('alarm_motion', 'ssIasZone', {
 			get: 'zoneStatus',
 			getOpts: {
 				getOnOnline: true,
@@ -128,7 +132,7 @@ class MultiSensorDevice extends ZigBeeDeviceDebug {
 			var pct = this.convertVoltageToPct(data1);
 
 			if (pct != null && typeof (pct) != 'undefined') {
-				this.setCapabilityValue('batteryPercentageRemaining', pct / 100);
+				this.setCapabilityValue('batteryPercentageRemaining', pct);
 			}
 
 		}, 0).catch(
@@ -139,18 +143,6 @@ class MultiSensorDevice extends ZigBeeDeviceDebug {
 
 		this.minReportTemp = /*this.getSetting('minReportTemp') ||*/ 1800;
 		this.maxReportTemp = /*this.getSetting('maxReportTemp') ||*/ 3600;
-
-		/*
-		this.registerAttrReportListener('msTemperatureMeasurement', 'measuredValue', this.minReportTemp, this.maxReportTemp, 10, data2 => {
-			this.log('measuredValue temperature', data2);
-			const temperature = Math.round((data2 / 100) * 10) / 10;
-			this.setCapabilityValue('measure_temperature', temperature);
-		}, 0).catch(
-			e => {
-				this.log('failed to registerAtrReportListener for temperature sensor' + e + " type: " + typeof (e));
-				this.log(e);
-			});
-			*/
 	}
 
 }
