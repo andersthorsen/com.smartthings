@@ -6,6 +6,9 @@ class SmartThingsDriver extends Homey.App {
 
 	onInit() {
 		this.log('SmartThingsDriver is running...');
+
+		
+
 	}
 
 }

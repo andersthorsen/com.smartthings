@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "homey-meshdriver": "^2.0.2",
+    "homey-zigbeedriver": "^1.6.2",
+    "zigbee-clusters": "^1.4.0"
+  },
+  "devDependencies": {
+    "homey": "^2.9.2"
+  }
+}

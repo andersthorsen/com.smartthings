@@ -1,8 +1,8 @@
 {
   "id": "com.smartthings",
   "version": "1.0.0",
-  "compatibility": ">=1.5.0",
-  "sdk": 2,
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
   "name": {
     "en": "Samsung SmartThings"
   },
@@ -34,13 +34,22 @@
         "alarm_motion",
         "measure_temperature"
       ],
+      "energy": {
+        "batteries": [ "CR2477" ]
+      },
       "zigbee": {
         "manufacturerName": "SmartThings",
         "productId": [
           "motionv5"
         ],
         "deviceId": 1026,
-        "profileId": 260
+        "profileId": 260,
+        "endpoints": {
+          "1": {
+            "clusters": [0, 1, 1026, 1280],
+            "bindings": [0, 1, 1026, 1280]
+          }
+        }        
       },
       "images": {
         "large": "/drivers/motionv5/assets/images/large.png",
@@ -57,15 +66,25 @@
         "measure_battery",
         "alarm_battery",
         "alarm_contact",
+        "alarm_tamper",
         "measure_temperature"
       ],
+      "energy": {
+        "batteries": [ "CR2450" ]
+      },
       "zigbee": {
         "manufacturerName": "SmartThings",
         "productId": [
           "multiv4"
-        ],
+        ],        
         "deviceId": 1026,
-        "profileId": 260
+        "profileId": 260,
+        "endpoints": {
+          "1": {
+            "clusters": [0, 1, 1026, 1280],
+            "bindings": [0, 1, 1026, 1280]
+          }
+        }        
       },
       "images": {
         "large": "/drivers/multiv4/assets/images/large.png",

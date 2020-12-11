@@ -2,6 +2,8 @@
 
 const ZigBeeDeviceDebug = require('../../lib/ZigBeeDeviceDebug');
 
+const { CLUSTER } = require('zigbee-clusters');
+
 /*
 	cluster genBinaryInput value = 1 => button inside pressed
 	cluster genBinaryInput value = 0 => button inside not pressed
@@ -13,6 +15,112 @@ const ZigBeeDeviceDebug = require('../../lib/ZigBeeDeviceDebug');
 */
 
 class MultiSensorDevice extends ZigBeeDeviceDebug {
+
+	onNodeInit({ zclNode }) {
+
+		this.batteryThreshold = 17;
+		this.registerCapability('alarm_battery', CLUSTER.POWER_CONFIGURATION, {
+			getOpts: {
+				getOnOnline: true,
+				getOnStart: true,
+			},
+			get: 'batteryVoltage',
+			report: 'batteryVoltage',
+			reportParser(value) {
+				// Check if setting `batteryThreshold` exists otherwise use Homey.Device#batteryThreshold if
+				// it exists use that, if both don't exist fallback to default value 1.
+				const batteryThreshold = this.getSetting('batteryThreshold') || this.batteryThreshold || 17;
+				return value <= batteryThreshold;
+			},
+			reportOpts: {
+				configureAttributeReporting: {
+					minInterval: 0, // No minimum reporting interval
+					maxInterval: 60000, // Maximally every ~16 hours
+					minChange: 1, // Report when value changed by 1
+				},
+			},
+		});
+
+		this.registerCapability('measure_battery', CLUSTER.POWER_CONFIGURATION, {
+			getOpts: {
+				getOnOnline: true,
+				getOnStart: true,				
+			},
+			get: 'batteryVoltage',
+			report: 'batteryVoltage',
+			reportParser(value) {			
+				return this.convertVoltageToPct(value);
+			},
+			reportOpts: {
+				configureAttributeReporting: {
+					minInterval: 0, // No minimum reporting interval
+					maxInterval: 60000, // Maximally every ~16 hours
+					minChange: 1, // Report when value changed by 1
+				},
+			},
+		});
+
+		
+		this.registerCapability('alarm_contact', CLUSTER.IAS_ZONE, {
+			getOpts: {
+				getOnOnline: true,
+				getOnStart: true
+			},
+			get: 'zoneStatus',
+			report: 'zoneStatus',
+			reportParser(value) {			
+				return (value.alarm1);
+			},
+			reportOpts: {
+				configureAttributeReporting: {
+					minInterval: 0, // No minimum reporting interval
+					maxInterval: 1800 , // Maximally every ~30 minutes
+					minChange: 1, // Report when value changed by 1
+				},
+			},
+		});		
+
+		/*
+		this.registerCapability('alarm_tamper', CLUSTER.IAS_ZONE, {
+			getOpts: {
+				getOnOnline: true,
+				getOnStart: true
+			},
+			get: 'zoneStatus',
+			report: 'zoneStatus',
+			reportParser(value) {			
+				return (value.tamper);
+			},
+			reportOpts: {
+				configureAttributeReporting: {
+					minInterval: 0, // No minimum reporting interval
+					maxInterval: 1800 , // Maximally every ~30 minutes
+					minChange: 1, // Report when value changed by 1
+				},
+			},
+		});		
+		*/
+		
+		/*
+    	this.zclNode.endpoints[1].bind(CLUSTER.IAS_ZONE.COMMANDS.zoneStatusChangeNotification, new OnOffBoundCluster({
+			onWithTimedOff: this._onWithTimedOffCommandHandler.bind(this),
+	  	}));
+		*/
+		
+		this.registerCapability('measure_temperature', CLUSTER.TEMPERATURE_MEASUREMENT, {
+			getOpts: {
+				getOnOnline: true,
+				getOnStart: true
+			},
+			reportOpts: {
+				configureAttributeReporting: {
+					minInterval: 0, // No minimum reporting interval
+					maxInterval: 1800 , // Maximally every ~30 minutes
+					minChange: 0.1, // Report when value changed by 0.1
+				},
+			},
+		})
+	}
 
 	convertVoltageToPct(voltage) {
 		var batteryMap = {
@@ -29,25 +137,29 @@ class MultiSensorDevice extends ZigBeeDeviceDebug {
 		if (volt > maxVolts) {
 			volt = maxVolts;
 			this.log('voltage is above maxium');
+			return 100;
 		}
 
 		if (volt < minVolts) {
 			volt = minVolts;
 			this.log('voltage is below minimum');
+			return 0;
 		}
 
 		var pct = batteryMap[volt.toString()];
 
-		if (pct == null || pct == undefined || typeof (psct) == 'undefined') {
+		if (pct == null || pct == undefined || typeof (pct) == 'undefined') {
 			this.log('cannot detect voltage.')
 			return null;
 		}
 
-		return pct / 100;
+		return pct;
 	}
 
 	onMeshInit() {
 		this.log('MultiSensorDevice (multiv4) has been inited');
+
+		return;
 
 		/*
 		this.log('configuring treshold for motion');
