@@ -5,6 +5,6 @@
     "zigbee-clusters": "^1.4.0"
   },
   "devDependencies": {
-    "homey": "^2.9.2"
+    "homey": "^2.18.0"
   }
 }
