@@ -1,0 +1,25 @@
+{
+    "id": "com.smartthings",
+    "version": "1.0.1",
+    "compatibility": ">=5.0.0",
+    "brandColor": "#76A0F7",
+    "sdk": 3,
+    "name": {
+      "en": "Samsung SmartThings"
+    },
+    "description": {
+      "en": "Adds support for Samsung SmartThings sensors"
+    },
+    "category": [
+      "security"
+    ],
+    "permissions": [],
+    "images": {
+      "large": "/assets/images/large.png",
+      "small": "/assets/images/small.png"
+    },
+    "author": {
+      "name": "Anders Thorsen",
+      "email": "anders@anders.to"
+    }
+  }
