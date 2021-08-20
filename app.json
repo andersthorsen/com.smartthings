@@ -1,7 +1,9 @@
 {
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.smartthings",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": ">=5.0.0",
+  "brandColor": "#76A0F7",
   "sdk": 3,
   "name": {
     "en": "Samsung SmartThings"
@@ -35,7 +37,9 @@
         "measure_temperature"
       ],
       "energy": {
-        "batteries": [ "CR2477" ]
+        "batteries": [
+          "CR2477"
+        ]
       },
       "zigbee": {
         "manufacturerName": "SmartThings",
@@ -46,10 +50,20 @@
         "profileId": 260,
         "endpoints": {
           "1": {
-            "clusters": [0, 1, 1026, 1280],
-            "bindings": [0, 1, 1026, 1280]
+            "clusters": [
+              0,
+              1,
+              1026,
+              1280
+            ],
+            "bindings": [
+              0,
+              1,
+              1026,
+              1280
+            ]
           }
-        }        
+        }
       },
       "images": {
         "large": "/drivers/motionv5/assets/images/large.png",
@@ -70,21 +84,33 @@
         "measure_temperature"
       ],
       "energy": {
-        "batteries": [ "CR2450" ]
+        "batteries": [
+          "CR2450"
+        ]
       },
       "zigbee": {
         "manufacturerName": "SmartThings",
         "productId": [
           "multiv4"
-        ],        
+        ],
         "deviceId": 1026,
         "profileId": 260,
         "endpoints": {
           "1": {
-            "clusters": [0, 1, 1026, 1280],
-            "bindings": [0, 1, 1026, 1280]
+            "clusters": [
+              0,
+              1,
+              1026,
+              1280
+            ],
+            "bindings": [
+              0,
+              1,
+              1026,
+              1280
+            ]
           }
-        }        
+        }
       },
       "images": {
         "large": "/drivers/multiv4/assets/images/large.png",
